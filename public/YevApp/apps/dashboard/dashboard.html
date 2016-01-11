@@ -1,0 +1,25 @@
+<section class="content-header">
+    <h1>
+        Dashboard
+    </h1>
+    <ol class="breadcrumb">
+        <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <i class="fa fa-chart"></i> <h3 class="box-title" ng-hide="user.role == 'direktur'">Total Lead Per Month</h3> <h3 class="box-title" ng-show="user.role == 'direktur'">Total Lead Per User</h3>
+                </div>
+                <div class="box-body">
+                    <canvas ng-if="user.role == 'administrator'" tc-chartjs-line chart-options="optionsPerMonth" chart-data="leadsPerMonth"></canvas>
+                    <canvas ng-if="user.role == 'direktur'" tc-chartjs-bar chart-options="optionsByUsers" chart-data="leadsByUsers"></canvas>
+                    <canvas ng-if="user.role == 'salesman'" tc-chartjs-line chart-options="optionsByUser" chart-data="leadsByUser"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

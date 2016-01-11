@@ -1,0 +1,72 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h3>User: {{ usr.first_name }} {{ usr.last_name }}</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <i class="fa fa-eye"></i> <h3 class="box-title">Details</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>{{ usr.first_name }} {{ usr.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{ usr.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Role</td>
+                                    <td>{{ usr.groups[0].name | capitalize }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td ng-if="usr.activated == true"><span class="label label-success">Active</span></td><td ng-if="usr.activated == false"><span class="label label-danger">Inactive</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Registered at</td>
+                                    <td>{{ usr.created_at }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Last login</td>
+                                    <td ng-hide="usr.last_login == null">{{ usr.last_login }}</td><td ng-show="usr.last_login == null">-</td>
+                                </tr>
+                                <tr ng-if="usr.created_at != usr.updated_at">
+                                    <td>Last edited</td>
+                                    <td>{{ usr.updated_at }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                   </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <i class="fa fa-list-alt"></i> <h3 class="box-title">Following up list</h3>
+                    </div>
+                    <div class="box-body">
+                        <h4 ng-if="usr.leads == ''">There is no lead yet belong to this user</h4>
+                        <ol ng-if="usr.leads != null">
+                            <li ng-repeat="lead in usr.leads">
+                                <b><span ng-show="lead.salutation != 'None'">{{ lead.salutation }} </span>{{ lead.first_name }} {{ lead.last_name }}</b> at {{ lead.pivot.created_at }}
+                                <dl>
+                                    <td>Notes :</td>
+                                    <td>{{ lead.pivot.notes }}</td>
+                                </dl>
+                            </li>
+                        </ol>
+                    </div>
+                </div><!-- /.box -->
+            </div>
+        </div>
+    </div>
+</div>

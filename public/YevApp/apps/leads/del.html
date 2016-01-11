@@ -1,0 +1,14 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h3 class="modal-title"><i class="fa fa-trash-o"></i> Are you sure want to delete this lead ?</h3>
+    </div>
+<div class="modal-body">
+    <p>Name : <span ng-if="lead.salutation != 'None'">{{ lead.salutation }} </span>{{ lead.first_name }} {{ lead.last_name }}</p>
+    <p>Status : {{ lead.leadstatus.status | capitalize }}
+</div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="cancel()">No</button>
+            <button class="btn btn-warning" ng-click="deleteLead(lead.id)">Yes</button>
+        </div>
+</div>

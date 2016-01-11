@@ -1,0 +1,76 @@
+<!-- Content Header -->
+<section class="content-header">
+    <h1>
+        Lead Management
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active">Leads</li>
+    </ol>
+</section>
+
+<!-- Content -->
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">
+                <button class="btn btn-primary btn-lg" ui-sref="main.leads.create"><i class="fa fa-pencil"></i> Create New Lead</button>
+            </h3>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body table-responsive" ng-controller="LeadListCtrl">
+            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Created by</th>
+                        <th>Created at</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in leads">
+                        <td>{{ row.salutation }} {{ row.first_name }} {{row.last_name }}</td>
+                        <td>{{ row.phone }}</td>
+                        <td>{{ row.address }}</td>
+                        <td>
+                            <span ng-if="row.leadstatus.status == 'pengenalan'" class="label label-default">{{ row.leadstatus.status | capitalize }}</span>
+                            <span ng-if="row.leadstatus.status == 'penawaran'" class="label bg-light-blue">{{ row.leadstatus.status | capitalize }}</span>
+                            <span ng-if="row.leadstatus.status == 'pending'" class="label bg-yellow">{{ row.leadstatus.status | capitalize }}</span>
+                            <span ng-if="row.leadstatus.status == 'sukses'" class="label label-success">{{ row.leadstatus.status | capitalize }}</span>
+                            <span ng-if="row.leadstatus.status == 'gagal'" class="label bg-red">{{ row.leadstatus.status | capitalize }}</span>
+                        </td>
+                        <td>{{ row.users[0].first_name }} {{ row.users[0].last_name }}</td>
+                        <td>{{ row.created_at }}</td>
+                        <td style="width: 11%" class="text-center">
+                            <a ng-click="showModal(row)" tooltip="Show lead details">
+                                <span class="fa-stack text-primary">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-eye fa-stack-1x"></i>
+                                </span></a>
+                            <a ng-click="editModal(row)" tooltip="Edit lead">
+                                <span class="fa-stack text-teal">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-pencil fa-stack-1x"></i>
+                                </span></a>
+                            </a></li>
+                            <a ng-click="deleteModal(row, leads)" tooltip="Delete lead" ng-hide="user.role == 'salesman' && row.users[0].id != user.id">
+                                <span class="fa-stack text-red">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-trash fa-stack-1x"></i>
+                                </span></a>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</section>
+<!-- /.content -->

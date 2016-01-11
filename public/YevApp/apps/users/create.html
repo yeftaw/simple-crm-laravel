@@ -1,0 +1,91 @@
+<!-- Content Header -->
+<section class="content-header">
+    <h1>
+        Create New User
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a ui-sref="main.users.index">Users</a></li>
+        <li class="active">Create new user</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <i class="fa fa-edit"></i> <h3 class="box-title">Fill the form bellow</h3>
+                </div>
+                <form name="userForm" ng-submit="createUser(userForm.$valid)" novalidate>
+                    <div class="box-body">
+                        <!-- First name -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.first_name.$invalid && !userForm.first_name.$pristine }">
+                            <label>First Name *</label>
+                            <input name="first_name" type="text" class="form-control" ng-model="usr.first_name" placeholder="First name" ng-maxlength="50" ng-model-options="{ debounce: 500 }" required>
+                            <p ng-show="userForm.first_name.$error.required && userForm.first_name.$dirty" class="help-block">First name is required.</p>
+                            <p ng-show="userForm.first_name.$error.maxlength && !userForm.first_name.$error.required" class="help-block">First name is too long (max. 75 chars).</p>
+                        </div>
+                        <!-- Last name -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.last_name.$invalid && !userForm.last_name.$pristine }">
+                            <label>Last Name</label>
+                            <input name="last_name" type="text" class="form-control" ng-model="usr.last_name" placeholder="Last name" ng-maxlength="50" ng-model-options="{ debounce: 500 }">
+                            <p ng-show="userForm.last_name.$error.maxlength" class="help-block">Last name is too long (max. 75 chars).</p>
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                            <label>Email *</label>
+                            <input name="email" type="email" class="form-control" ng-model="usr.email" placeholder="Email address" ng-maxlength="50" ng-model-options="{ debounce: 500 }" required>
+                            <p ng-show="userForm.email.$invalid && !userForm.email.$pristine && !userForm.email.$error.required" class="help-block">Enter a valid email.</p>
+                            <p ng-show="userForm.email.$error.required && userForm.email.$dirty" class="help-block">Email is required</p>
+                            <p ng-show="userForm.email.$error.maxlength" class="help-block">Email address is too long (max. 50 chars).</p>
+                        </div>
+                        <!-- Password -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                            <label>Password *</label>
+                            <input name="password" type="password" class="form-control" ng-model="usr.password" placeholder="Password" ng-model-options="{ debounce: 500 }" ng-minlength="5" required>
+                            <p ng-show="userForm.password.$error.required && userForm.password.$dirty" class="help-block">Password is required</p>
+                            <p ng-show="userForm.password.$error.minlength && !userForm.password.$error.required" class="help-block">The password must be at least 5 characters</p>
+                        </div>
+                        <!-- Password Confirmation -->
+                         <div class="form-group" ng-class="{ 'has-error' : userForm.password_confirmation.$invalid && !userForm.password_confirmation.$pristine }">
+                            <label>Password Confirmation *</label>
+                            <input name="password_confirmation" type="password" class="form-control" ng-model="usr.password_confirmation" placeholder="Password Confirmation" ng-model-options="{ debounce: 500 }" required ui-validate-equals="usr.password">
+                            <p ng-show="userForm.password_confirmation.$error.required && userForm.password_confirmation.$dirty" class="help-block">Password confirmation is required</p>
+                            <p ng-show="userForm.password_confirmation.$error.equal && userForm.password_confirmation.$dirty && !userForm.password_confirmation.$error.required" class="help-block">Password confirmation must match</p>
+                        </div>
+                        <!-- User role -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.group_id.$invalid && !userForm.group_id.$pristine }">
+                            <label>User Role *</label>
+                            <select name="group_id"
+                                    ng-model="usr.group_id"
+                                    ng-options="a.id as a.name | capitalize for a in grouplist"
+                                    class="form-control" required>
+                                <option value="" selected>Choose a user role</option>
+                            </select>
+                            <p ng-show="userForm.group_id.$invalid && !userForm.group_id.$pristine" class="help-block">User role is required.</p>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button class="btn btn-warning" ng-click="cancel();userForm.$setPristine()">Cancel</button>
+                        <button type="reset" class="btn btn-default" ng-click="form.$setPristine()">Reset</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header">
+                    <i class="fa fa-exclamation-circle"></i> <h3 class="box-title">Rules</h3>
+                </div>
+                <div class="box-body">
+                    <ul>
+                        <li>First name, email, password, and user role are required</li>
+                        <li>Submit button will be disabled until you have a validated form</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

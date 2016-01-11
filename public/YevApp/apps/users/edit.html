@@ -1,0 +1,43 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h3 class="modal-title"><i class="fa fa-edit"></i> Editing user : {{ usr.first_name }} {{ usr.last_name }}</h3>
+    </div>
+    <form name="userForm" novalidate>
+        <div class="modal-body">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.first_name.$invalid && !userForm.first_name.$pristine }">
+                <label>First Name *</label>
+                <input name="first_name" type="text" class="form-control" ng-model="usr.first_name" placeholder="First name" ng-maxlength="50" ng-model-options="{ debounce: 500 }" required>
+                <p ng-show="userForm.first_name.$error.required && userForm.first_name.$dirty" class="help-block">First name is required.</p>
+                <p ng-show="userForm.first_name.$error.maxlength && !userForm.first_name.$error.required" class="help-block">First name is too long (max. 75 chars).</p>
+            </div>
+            <!-- Last name -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.last_name.$invalid && !userForm.last_name.$pristine }">
+                <label>Last Name</label>
+                <input name="last_name" type="text" class="form-control" ng-model="usr.last_name" placeholder="Last name" ng-maxlength="50" ng-model-options="{ debounce: 500 }">
+                <p ng-show="userForm.last_name.$error.maxlength" class="help-block">Last name is too long (max. 75 chars).</p>
+            </div>
+            <!-- Email -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <label>Email *</label>
+                <input name="email" type="email" class="form-control" ng-model="usr.email" placeholder="Email address" ng-maxlength="50" ng-model-options="{ debounce: 500 }" required>
+                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine && !userForm.email.$error.required" class="help-block">Enter a valid email.</p>
+                <p ng-show="userForm.email.$error.required && userForm.email.$dirty" class="help-block">Email is required</p>
+                <p ng-show="userForm.email.$error.maxlength" class="help-block">Email address is too long (max. 50 chars).</p>
+            </div>
+            <!-- Activated ? -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.activated.$invalid && !userForm.activated.$pristine }">
+                <label>Activated *</label>
+                    <div class="radio">
+                        <label><input ng-model="usr.activated" type="radio" ng-value="true"> True</label>
+                        <label><input ng-model="usr.activated" type="radio" ng-value="false"> False</label>
+                    </div>
+                <p ng-show="userForm.activated.$invalid && !userForm.activated.$pristine" class="help-block">Activated status is required.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="editUser(userForm.$valid)" ng-disabled="leadForm.$invalid || leadForm.$pristine">Update</button>
+        </div>
+    </form>
+</div>

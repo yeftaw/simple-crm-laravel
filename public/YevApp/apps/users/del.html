@@ -1,0 +1,14 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h3 class="modal-title"><i class="fa fa-trash-o"></i> Are you sure want to delete this user ?</h3>
+    </div>
+<div class="modal-body">
+    <p>Name : {{ usr.first_name }} {{ usr.last_name }}</p>
+    <p>Role : {{ usr.groups[0].name | capitalize }}
+</div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="cancel()">No</button>
+            <button class="btn btn-warning" ng-click="deleteUser(usr.id)">Yes</button>
+        </div>
+</div>

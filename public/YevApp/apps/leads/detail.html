@@ -1,0 +1,80 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h3>Lead: {{ lead.salutation }} {{ lead.first_name }} {{ lead.last_name }}</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <i class="fa fa-eye"></i> <h3 class="box-title">Details</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td><span ng-if="lead.salutation != 'None'">{{ lead.salutation }} </span>{{ lead.first_name }} {{ lead.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>{{ lead.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><span ng-show="lead.email == null">-</span>{{ lead.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td>{{ lead.address }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Alternate address</td>
+                                    <td><span ng-show="lead.address2 == null">-</span>{{ lead.address2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td><b>{{ lead.leadstatus.status | capitalize }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Description</td>
+                                    <td><span ng-show="lead.description == null">-</span>{{ lead.description }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Created at</td>
+                                    <td>{{ lead.created_at }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Updated at</td>
+                                    <td><span ng-if="lead.created_at == lead.updated_at">-</span>
+                                    <span ng-if="lead.created_at != lead.updated_at">{{ lead.updated_at }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <i class="fa fa-list-alt"></i> <h3 class="box-title">Follow Up List</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                    <ol>
+                        <li ng-repeat="user in lead.users">
+                            <b>{{ user.first_name }} {{ user.last_name }}</b> at {{ user.pivot.created_at }}
+                            <dl>
+                                <td>Notes :</td>
+                                <td>{{ user.pivot.notes }}</td>
+                            </dl>
+                        </li>
+                    </ol>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+        </div>
+    </div>
+</div>

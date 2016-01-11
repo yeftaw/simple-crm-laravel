@@ -1,0 +1,79 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h3 class="modal-title"><i class="fa fa-edit"></i> Editing lead : {{ lead.salutation }} {{ lead.first_name }} {{ lead.last_name }}</h3>
+    </div>
+    <form name="leadForm" novalidate>
+        <div class="modal-body">
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.salutation.$invalid && !leadForm.salutation.$pristine }">
+                <label>Salutation *</label>
+                <select name="salutation"
+                        ng-model="lead.salutation"
+                        ng-options="salutation for (salutation,value) in salutations"
+                        class="form-control"
+                        ng-model-options="{ debounce: 500 }">
+                    <option value="" selected>None</option>
+                </select>
+                <p ng-show="leadForm.salutation.$invalid && !leadForm.salutation.$pristine" class="help-block">You must choose one of salutations given.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.first_name.$invalid && !leadForm.first_name.$pristine }">
+                <label>First Name *</label>
+                <input name="first_name" type="text" class="form-control" ng-model="lead.first_name" placeholder="First name" ng-maxlength="50" ng-model-options="{ debounce: 500 }" required>
+                <p ng-show="leadForm.first_name.$error.required && leadForm.first_name.$dirty" class="help-block">First name is required.</p>
+                <p ng-show="leadForm.first_name.$error.maxlength" class="help-block">First name is too long (max. 75 chars).</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.last_name.$invalid && !leadForm.last_name.$pristine }">
+                <label>Last Name</label>
+                <input name="last_name" type="text" class="form-control" ng-model="lead.last_name" placeholder="Last name" ng-maxlength="50" ng-model-options="{ debounce: 500 }">
+                <p ng-show="leadForm.last_name.$error.maxlength" class="help-block">Last name is too long (max. 75 chars).</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.phone.$invalid && !leadForm.phone.$pristine }">
+                <label>Phone *</label>
+                <input name="phone" type="text" class="form-control" ng-model="lead.phone" placeholder="Phone number" ng-maxlength="15" ng-model-options="{ debounce: 500 }" required>
+                <p ng-show="leadForm.phone.$error.required && leadForm.phone.$dirty" class="help-block">Phone number is required.</p>
+                <p ng-show="leadForm.phone.$error.maxlength" class="help-block">Phone number is too long (max. 15 chars).</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.email.$invalid && !leadForm.email.$pristine }">
+                <label>Email</label>
+                <input name="email" type="email" class="form-control" ng-model="lead.email" placeholder="Email address" ng-maxlength="50" ng-model-options="{ debounce: 500 }">
+                <p ng-show="leadForm.email.$invalid && !leadForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                <p ng-show="leadForm.email.$error.maxlength" class="help-block">Email address is too long (max. 50 chars).</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.instance.$invalid && !leadForm.instance.$pristine }">
+                <label>Instance</label>
+                <input name="instance" type="text" class="form-control" ng-model="lead.instance" placeholder="Instance / department" ng-maxlength="75">
+                <p ng-show="leadForm.instance.$error.maxlength" class="help-block">Instance name is too long (max. 75 chars).</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.address.$invalid && !leadForm.address.$pristine }">
+                <label>Address *</label>
+                <input name="address" type="text" class="form-control" ng-model="lead.address" placeholder="Primary address" ng-maxlength="255" required>
+                <p ng-show="leadForm.address.$error.required && leadForm.address.$dirty" class="help-block">Address is required.</p>
+                <p ng-show="leadForm.address.$error.maxlength" class="help-block">Address is too long (max. 255 chars).</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.address2.$invalid && !leadForm.address2.$pristine }">
+                <label>Alternate Address</label>
+                <input name="address2" type="text" class="form-control" ng-model="lead.address2" placeholder="Secondary address" ng-maxlength="255">
+                <p ng-show="leadForm.address2.$error.maxlength" class="help-block">Alternate address is too long (max. 255 chars).</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.status_id.$invalid && !leadForm.status_id.$pristine }">
+                <label>Lead Status *</label>
+                <select name="status_id"
+                        ng-model="lead.status_id"
+                        ng-options="a.id as a.status | capitalize for a in statuses"
+                        class="form-control" required>
+                    <option value="" selected>Choose a status for the lead</option>
+                </select>
+                <p ng-show="leadForm.status_id.$invalid && !leadForm.status_id.$pristine" class="help-block">Lead status is required.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : leadForm.description.$invalid && !leadForm.description.$pristine }">
+                <label>Description</label>
+                <textarea name="description" class="form-control" ng-model="lead.description" placeholder="Description about the lead" ng-maxlength="255"></textarea>
+                <p ng-show="leadForm.description.$error.maxlength" class="help-block">Lead description is too long (max. 255 chars).</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="editLead(leadForm.$valid)" ng-disabled="leadForm.$invalid || leadForm.$pristine">Update</button>
+        </div>
+    </form>
+</div>

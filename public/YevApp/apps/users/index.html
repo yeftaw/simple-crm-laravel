@@ -1,0 +1,69 @@
+<!-- Content Header -->
+<section class="content-header">
+    <h1>
+        User Management
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active">Users</li>
+    </ol>
+</section>
+
+<!-- Content -->
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">
+                <button class="btn btn-primary btn-lg" ui-sref="main.users.create"><i class="fa fa-pencil"></i> Create New User</button>
+            </h3>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body table-responsive" ng-controller="UserListCtrl">
+            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Created at</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in users" ng-hide="(row.email == 'admin@example.com')">
+                        <td>{{ row.first_name }} {{row.last_name }}</td>
+                        <td>{{ row.email }}</td>
+                        <td ng-if="row.activated == true"><span class="label label-success">Active</span></td><td ng-if="row.activated == false"><span class="label label-danger">Inactive</span></td>
+                        <td>{{ row.groups[0].name | capitalize }}</td>
+                        <td>{{ row.created_at }}</td>
+                        <td style="width: 11%" class="text-center ">
+                            <a ng-click="showModal(row)" tooltip="Show lead details">
+                                <span class="fa-stack text-primary">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-eye fa-stack-1x"></i>
+                                </span>
+                            </a>
+                            <a ng-click="editModal(row)" tooltip="Edit lead">
+                                <span class="fa-stack text-teal">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-pencil fa-stack-1x"></i>
+                                </span>
+                            </a>
+                            <a ng-click="deleteModal(row)" tooltip="Delete lead">
+                                <span class="fa-stack text-red">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-trash fa-stack-1x"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</section>
+<!-- /.content -->

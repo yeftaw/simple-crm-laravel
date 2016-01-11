@@ -1,0 +1,25 @@
+<aside class="left-side sidebar-offcanvas" ui-view="sidebar">
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <ul class="sidebar-menu">
+            <li ui-sref-active="active" class="active">
+                <a ui-sref="main.dashboard">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-hide="{{user.role != 'administrator'}}">
+                <a ui-sref="main.users.index">
+                    <i class="fa fa-users"></i> <span>Users</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="main.leads.index">
+                    <i class="fa fa-book"></i> <span>Leads</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+<aside class="right-side" ui-view></aside>
